@@ -1,14 +1,16 @@
 package com.thoughtworks.capacity.gtb.mvc.controller;
 
-
 import com.thoughtworks.capacity.gtb.mvc.controller.dto.UserRequest;
 import com.thoughtworks.capacity.gtb.mvc.service.UserService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 
 @RestController
+@Validated
 public class UserController {
 
     private final UserService userService;
@@ -18,7 +20,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public void addUser(@RequestBody UserRequest request) {
+    public void addUser(@RequestBody @Valid UserRequest request) {
         userService.save(request);
     }
 
