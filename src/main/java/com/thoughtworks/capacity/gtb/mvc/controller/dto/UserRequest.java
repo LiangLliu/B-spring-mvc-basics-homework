@@ -2,8 +2,6 @@ package com.thoughtworks.capacity.gtb.mvc.controller.dto;
 
 import com.thoughtworks.capacity.gtb.mvc.domain.User;
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.*;
 

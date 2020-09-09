@@ -9,6 +9,9 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @RestController
 @Validated
@@ -28,8 +31,15 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public ResponseEntity<UserResponse> userLogin(@RequestParam("username") String username,
-                                                  @RequestParam("password") String password) {
+    public ResponseEntity<UserResponse> userLogin(@RequestParam("username")
+                                                  @Pattern(regexp = "^\\w{3,10}$", message = "用户名不合法")
+                                                  @NotBlank(message = "用户名不能为空")
+                                                          String username,
+
+                                                  @RequestParam("password")
+                                                  @NotBlank(message = "密码不能为空")
+                                                  @Size(min = 5, max = 12, message = "密码不合法")
+                                                          String password) {
         UserResponse userResponse = userService.login(username, password);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(userResponse);
