@@ -18,4 +18,9 @@ public class UserRepositoryImpl implements UserRepository {
         users.put(user.getUsername(), user);
         return user;
     }
+
+    @Override
+    public boolean isExisted(String username) {
+        return users.get(username) != null;
+    }
 }
