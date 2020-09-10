@@ -47,6 +47,68 @@ public class UserControllerTest {
     }
 
 
+    @Test
+    public void should_throw_exception_code_400_when_given_user_name_error() throws Exception {
+
+        String url = "/register";
+
+        UserRequest userRequest = UserRequest.builder()
+                .username("Tom.")
+                .password("123456")
+                .email("a@qq.com")
+                .build();
+        String request = objectMapper.writeValueAsString(userRequest);
+
+        mockMvc.perform(post(url)
+                .content(request)
+                .contentType("application/json;charset=UTF-8")
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isBadRequest());
+
+    }
+
+    @Test
+    public void should_throw_exception_code_400_when_given_password_is_short() throws Exception {
+
+        String url = "/register";
+
+        UserRequest userRequest = UserRequest.builder()
+                .username("Tom")
+                .password("12")
+                .email("a@qq.com")
+                .build();
+        String request = objectMapper.writeValueAsString(userRequest);
+
+        mockMvc.perform(post(url)
+                .content(request)
+                .contentType("application/json;charset=UTF-8")
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isBadRequest());
+
+    }
+
+
+    @Test
+    public void should_throw_exception_code_400_when_given_email_is_error() throws Exception {
+
+        String url = "/register";
+
+        UserRequest userRequest = UserRequest.builder()
+                .username("Tom")
+                .password("1212234")
+                .email("qq.com")
+                .build();
+        String request = objectMapper.writeValueAsString(userRequest);
+
+        mockMvc.perform(post(url)
+                .content(request)
+                .contentType("application/json;charset=UTF-8")
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isBadRequest());
+
+    }
+
+
 
     @Test
     public void should_return_result_list_when_get_result_list() throws Exception {
